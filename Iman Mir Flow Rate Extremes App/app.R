@@ -11,14 +11,14 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       #Feature 1 : Creating a slider to select year range of data to 
-      #allow for trend analysis and dyanmic visualization of the data
+      #allow for trend analysis and dynamic visualization of the data
       sliderInput("id_slider", "Select a year range:", min = 1909, max=2018, 
                   value = c(2001, 2005))
     ),
     
     mainPanel(
       
-      #Feature 2: Creating two sperate tabs for table and histogram as 
+      #Feature 2: Creating two seperate tabs for table and histogram as 
       #it allows for better organization of the content and enhances user 
       # engagement
       
