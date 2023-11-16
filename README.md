@@ -27,6 +27,9 @@ devtools::install_github(“UBC-MDS/datateachr”)
 
 ### Repository Main Files
 
-The repository contains: - README.md and README.rmd files describing the
-repository - Iman Mir Flow Rate Extremes App which contains the app.R
-and rsconnect files
+The repository contains:
+
+- README.md and README.rmd files describing the repository
+
+- Iman Mir Flow Rate Extremes App which contains the app.R and rsconnect
+  files
