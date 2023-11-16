@@ -1,0 +1,10 @@
+name: iman_mir_flow_rate_extremes_app
+title:
+username: iman-mir
+account: iman-mir
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10551791
+bundleId: 7936866
+url: https://iman-mir.shinyapps.io/iman_mir_flow_rate_extremes_app/
+version: 1
