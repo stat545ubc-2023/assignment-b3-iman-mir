@@ -1,0 +1,56 @@
+{
+  "input": {
+    "col": "#59FF00",
+    "id_slider": [
+      1945,
+      1972
+    ]
+  },
+  "output": {
+    "id_histogram": {
+      "src": "[image data sha1: 98a8f0cbf31f0a36d6afec70aca83583e275bf30]",
+      "width": 631.328125,
+      "height": 400,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": -19.8448275862069,
+              "right": 307.5948275862069,
+              "bottom": -1.25,
+              "top": 26.25
+            },
+            "mapping": {
+              "y": null,
+              "x": "flow"
+            },
+            "range": {
+              "left": 32.93193493150685,
+              "right": 625.5205479452054,
+              "bottom": 368.8464731501983,
+              "top": 5.479452054794522
+            }
+          }
+        ],
+        "dims": {
+          "width": 631.328125,
+          "height": 400
+        }
+      }
+    }
+  },
+  "export": {
+
+  }
+}
