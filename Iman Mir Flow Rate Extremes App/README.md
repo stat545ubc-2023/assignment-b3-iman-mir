@@ -1,0 +1,8 @@
+README
+================
+
+This folder contains the app.R file with the shiny app functionalities
+and the rsconnect file containing the shinyapps.io information.
+
+The app contains multiple features including a slider, tabs, changing
+histogram colours and creating interactive table.
