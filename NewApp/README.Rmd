@@ -2,3 +2,17 @@
 title: "README"
 output: github_document
 ---
+
+```{r}
+
+unique_values_roast <- unique(coffee_data$roast)
+print(unique_values_roast)
+
+unique_values_origin <- unique(coffee_data$origin)
+print(unique_values_origin)
+head(coffee_data)
+
+
+
+```
+
