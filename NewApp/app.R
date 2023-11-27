@@ -10,6 +10,8 @@ ui <- fluidPage(
   titlePanel("Coffee Recommendation App"),
   sidebarLayout(
     sidebarPanel(
+      selectInput("country", "Select Your Country:",
+                  choices = c("All", unique(coffee_data$loc_country))),
       selectInput("roast_type", "Select Roast Type:",
                   choices = c("All", unique(coffee_data$roast))),
       sliderInput("price_range", "Select Price Range:",
@@ -23,9 +25,11 @@ ui <- fluidPage(
     
       actionButton("submit", "Submit")
     ),
+    
     mainPanel(
       plotOutput("recommendation_plot"),
-      plotOutput("recommendation_plot2")
+      plotOutput("recommendation_plot2"),
+      tableOutput("recommendation_table")
     )
   )
 )
@@ -34,9 +38,10 @@ ui <- fluidPage(
 server <- function(input, output) {
   filtered_data <- reactive({
     filtered <- coffee_data
-    if (input$roast_type != "All") {
-      filtered <- filtered %>% filter(roast == input$roast_type)
+    if (input$country != "All") {
+      filtered <- filtered %>% filter(loc_country == input$country)
     }
+    filtered <- filtered %>% filter(roast == input$roast_type)
     filtered <- filtered %>% filter(X100g_USD >= input$price_range[1] & X100g_USD <= input$price_range[2])
     filtered <- filtered %>% filter(rating >= input$rating_range[1] & rating <= input$rating_range[2])
     return(filtered)
@@ -57,11 +62,16 @@ server <- function(input, output) {
     req(input$submit)
     filtered <- filtered_data()
     p <- ggplot(filtered, aes(x = name, y = roaster)) +
-      geom_point() +
+      geom_col() +
       labs(x = "Name", y = "Roaster", title = "Coffee Recommendations")
     print(p)
   })
   
+  output$recommendation_table <- renderTable({
+    req(input$submit)
+    filtered <- filtered_data()
+    filtered[, c("name", "roast", "X100g_USD")]  # Adjust columns as needed
+  })
   
   
 }
