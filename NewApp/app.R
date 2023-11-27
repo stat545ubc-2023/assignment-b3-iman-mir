@@ -18,18 +18,25 @@ ui <- fluidPage(
                   min = min(coffee_data$X100g_USD), max = max(coffee_data$X100g_USD),
                   value = c(min(coffee_data$X100g_USD), max(coffee_data$X100g_USD)),
                   step = 1),
-      sliderInput("rating_range", "Select Rating Range:",
-                  min = min(coffee_data$rating), max = max(coffee_data$rating),
-                  value = c(min(coffee_data$rating), max(coffee_data$rating)),
-                  step = 1),
-    
       actionButton("submit", "Submit")
     ),
     
     mainPanel(
-      plotOutput("recommendation_plot"),
-      plotOutput("recommendation_plot2"),
-      tableOutput("recommendation_table")
+      tabsetPanel(
+        
+        tabPanel("Coffee Name Recommendations", 
+                 uiOutput("highly_recommended_coffee_panel"),
+                 plotOutput("recommendation_plot"), 
+                 DT::dataTableOutput("recommendation_table"),
+        ),
+        tabPanel("Coffee Roaster Recommendations", 
+                 uiOutput("highly_recommended_roaster_panel"),
+                 plotOutput("recommendation_plot2"),
+                 DT::dataTableOutput("recommendation_table2"),
+
+        ),
+
+    )
     )
   )
 )
@@ -43,7 +50,6 @@ server <- function(input, output) {
     }
     filtered <- filtered %>% filter(roast == input$roast_type)
     filtered <- filtered %>% filter(X100g_USD >= input$price_range[1] & X100g_USD <= input$price_range[2])
-    filtered <- filtered %>% filter(rating >= input$rating_range[1] & rating <= input$rating_range[2])
     return(filtered)
   })
   
@@ -53,26 +59,82 @@ server <- function(input, output) {
     filtered <- filtered_data()
     p <- ggplot(filtered, aes(x = X100g_USD, y = name)) +
       geom_point() +
-      labs(x = "Price (X100g_USD)", y = "Coffee Name", title = "Coffee Recommendations")
+      labs(x = "Price (X100g_USD)", y = "Coffee Name")
     print(p)
   })
   
+  output$recommendation_table <- DT::renderDataTable({
+    req(input$submit)
+    filtered <- filtered_data()
+    filtered[c("name", "X100g_USD","rating", "roast")]  # Adjust columns as needed
+  })
   
   output$recommendation_plot2 <- renderPlot({
     req(input$submit)
     filtered <- filtered_data()
     p <- ggplot(filtered, aes(x = name, y = roaster)) +
-      geom_col() +
-      labs(x = "Name", y = "Roaster", title = "Coffee Recommendations")
+      geom_point() +
+      labs(x = "Name", y = "Roaster")
     print(p)
   })
   
-  output$recommendation_table <- renderTable({
+  output$recommendation_table2 <- DT::renderDataTable({
     req(input$submit)
     filtered <- filtered_data()
-    filtered[, c("name", "roast", "X100g_USD")]  # Adjust columns as needed
+    filtered[c("name", "roaster","rating", "roast")]  # Adjust columns as needed
   })
   
+  output$highly_recommended_coffee <- renderText({
+    req(input$submit)
+    filtered <- filtered_data()
+    top_coffee <- filtered %>%
+      filter(rating == max(rating)) %>%
+      pull(name) %>%
+      unique()
+    
+    if (length(top_coffee) > 0) {
+      paste("Highly recommended coffee(s):", paste(top_coffee, collapse = ", "))
+    } else {
+      "No highly recommended coffee found based on the selected criteria."
+    }
+  })
+  
+  output$highly_recommended_roaster <- renderText({
+    req(input$submit)
+    filtered <- filtered_data()
+    top_roaster <- filtered %>%
+      filter(rating == max(rating)) %>%
+      pull(roaster) %>%
+      unique()
+    
+    if (length(top_roaster) > 0) {
+      paste("Highly recommended roaster(s):", paste(top_roaster, collapse = ", "))
+    } else {
+      "No highly recommended roaster found based on the selected criteria."
+    }
+  })
+  
+  
+  
+  output$highly_recommended_coffee_panel <- renderUI({
+    fluidRow(
+      column(
+        width = 12,
+        verbatimTextOutput("highly_recommended_coffee")
+      )
+    )
+  })
+  
+  output$highly_recommended_roaster_panel <- renderUI({
+    fluidRow(
+      column(
+        width = 12,
+        verbatimTextOutput("highly_recommended_roaster")
+      )
+    )
+  })
+  
+
   
 }
 
