@@ -4,15 +4,22 @@ output: github_document
 ---
 
 ```{r}
+coffee_data <- read.csv("/Users/imanmir/Downloads/simplified_coffee.csv")
 
-unique_values_roast <- unique(coffee_data$roast)
-print(unique_values_roast)
+unique_values_price <- unique(ceiling(coffee_data$X100g_USD))
+                                
 
 unique_values_origin <- unique(coffee_data$origin)
-print(unique_values_origin)
-head(coffee_data)
+unique_values_roast <- unique(coffee_data$roast)
 
+sort(unique_values_price)
+unique_values_origin
 
+pain <- c(5,   6,   4,  7,  34,   8,  9,  17,  33,  20,  13,  18,  27,  14,  91, 23,  24,  10,  64,  21,  16,  22, 112,  12,  11,  31,  15,  38,  29,   3, 44,  39,  26,  69,  42,  32,   2,  28,  46,   1,  80, 100,  58,  50,  25,  37,  67, 40,  45,  71,  36, 133, 128,  30,  41, 116, 124)
+order(desc(pain))
 
+c( "Medium-Light","Medium","Light","Medium-Dark", "Dark")
+
+unique(coffee_data$rating)
 ```
 
