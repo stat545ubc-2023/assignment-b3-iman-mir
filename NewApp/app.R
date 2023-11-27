@@ -25,14 +25,26 @@ ui <- fluidPage(
       tabsetPanel(
         
         tabPanel("Coffee Name Recommendations", 
-                 uiOutput("highly_recommended_coffee_panel"),
-                 plotOutput("recommendation_plot"), 
-                 DT::dataTableOutput("recommendation_table"),
+                 fluidRow(
+                   column(width = 12, h4("Based on your choices:")),
+                   column(width = 12, uiOutput("highly_recommended_coffee_panel")),
+                   column(width = 12, h4("Reccommended Coffees per Price")),
+                   column(width = 12, plotOutput("recommendation_plot")),
+                   column(width = 12, h4("Table of Reccommended Data")),
+                   column(width = 12, DT::dataTableOutput("recommendation_table"))
+                   
+                 )
         ),
         tabPanel("Coffee Roaster Recommendations", 
-                 uiOutput("highly_recommended_roaster_panel"),
-                 plotOutput("recommendation_plot2"),
-                 DT::dataTableOutput("recommendation_table2"),
+                 fluidRow(
+                   column(width = 12, h4("Based on your choices:")),
+                   column(width = 12, uiOutput("highly_recommended_roaster_panel")),
+                   column(width = 12, h4("Reccommended Coffees per Price")),
+                   column(width = 12, plotOutput("recommendation_plot2")),
+                   column(width = 12, h4("Table of Reccommended Data")),
+                   column(width = 12, DT::dataTableOutput("recommendation_table2"))
+                   
+                 )
 
         ),
 
@@ -74,7 +86,8 @@ server <- function(input, output) {
     filtered <- filtered_data()
     p <- ggplot(filtered, aes(x = name, y = roaster)) +
       geom_point() +
-      labs(x = "Name", y = "Roaster")
+      labs(x = "Name", y = "Roaster") + 
+      theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     print(p)
   })
   
