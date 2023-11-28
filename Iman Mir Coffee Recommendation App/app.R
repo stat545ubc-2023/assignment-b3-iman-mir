@@ -5,7 +5,7 @@ library(tidyverse)
 library(ggplot2)
 
 #Creating coffee_data dataset
-coffee_data <- read.csv("/Users/imanmir/assignment-b3-iman-mir/simplified_coffee.csv")
+coffee_data <- read.csv("/Users/imanmir/assignment-b3-iman-mir/Iman Mir Coffee Recommendation App/simplified_coffee.csv")
 
 # UI of App
 ui <- fluidPage(
