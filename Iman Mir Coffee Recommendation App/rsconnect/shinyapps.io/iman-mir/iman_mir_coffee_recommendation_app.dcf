@@ -1,0 +1,10 @@
+name: iman_mir_coffee_recommendation_app
+title:
+username: iman-mir
+account: iman-mir
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10647406
+bundleId: 7977874
+url: https://iman-mir.shinyapps.io/iman_mir_coffee_recommendation_app/
+version: 1

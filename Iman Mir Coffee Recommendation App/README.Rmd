@@ -5,7 +5,7 @@ output: github_document
 
 ### Overview
 The following is a link to a running instance of the app: 
-<https://iman-mir.shinyapps.io/iman_mir_flow_rate_extremes_app/>
+<https://iman-mir.shinyapps.io/iman_mir_coffee_recommendation_app/>
 
 This folder contains the app.R file with the shiny app functionalities, the rsconnect file containing the shinyapps.io information and the tests folder which tests the app usage.
 
