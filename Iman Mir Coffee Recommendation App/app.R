@@ -3,9 +3,12 @@ library(shiny)
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
+library(readr)
 
-#Creating coffee_data dataset
-coffee_data <- read.csv("/Users/imanmir/assignment-b3-iman-mir/simplified_coffee.csv")
+#Creating coffee_data dataset and renaming columns 
+simplified_coffee <- read_csv("simplified_coffee.csv", show_col_types = FALSE)
+coffee_data <- simplified_coffee
+coffee_data <- coffee_data %>% rename(USD = "100g_USD")
 
 # UI of App
 ui <- fluidPage(
@@ -32,8 +35,8 @@ ui <- fluidPage(
       #Feature 2 : Creating a slider input to select price range  
       # and determine recommended coffee names within that range
       sliderInput("price_range", "Select Price per 100g Range (in USD):",
-                  min = min(coffee_data$X100g_USD), max = max(coffee_data$X100g_USD),
-                  value = c(min(coffee_data$X100g_USD), max(coffee_data$X100g_USD)),
+                  min = min(coffee_data$USD), max = max(coffee_data$USD),
+                  value = c(min(coffee_data$USD), max(coffee_data$USD)),
                   step = 1),
       #Feature 3 : Creating action button to submit the selected preferences 
       actionButton("submit", "Submit")
@@ -108,7 +111,7 @@ server <- function(input, output) {
       filtered <- filtered %>% filter(loc_country == input$country)
     }
     filtered <- filtered %>% filter(roast == input$roast_type)
-    filtered <- filtered %>% filter(X100g_USD >= input$price_range[1] & X100g_USD <= input$price_range[2])
+    filtered <- filtered %>% filter(USD >= input$price_range[1] & USD <= input$price_range[2])
     return(filtered)
   })
   
@@ -117,17 +120,18 @@ server <- function(input, output) {
   output$recommendation_plot <- renderPlot({
     req(input$submit)
     filtered <- filtered_data()
-    plot1 <- ggplot(filtered, aes(x = X100g_USD, y = name)) +
+    plot1 <- ggplot(filtered, aes(x = USD, y = name)) +
       geom_point(color = "blue") +
-      labs(x = "Price (X100g_USD)", y = "Coffee Name")
+      labs(x = "Price", y = "Coffee Name")
     print(plot1)
   })
+  
   
   #Creating recommendation table for coffee name
   output$recommendation_table <- DT::renderDataTable({
     req(input$submit)
     filtered <- filtered_data()
-    filtered[c("name", "X100g_USD","rating", "roast")] 
+    filtered[c("name", 'USD',"rating", "roast")] 
   })
   
   #Creating recommendation plot for roaster
@@ -198,7 +202,7 @@ server <- function(input, output) {
   output$highly_review_table <- DT::renderDataTable({
     req(input$submit)
     filtered <- filtered_data()
-    filtered[c("name","roaster", "review_date", "review")]  # Adjust columns as needed
+    filtered[c("name","roaster", "review_date", "review")] 
   })
   
 }
