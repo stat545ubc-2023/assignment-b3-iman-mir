@@ -1,7 +1,7 @@
 README
 ================
 
-## Assignment B4 - Iman Mir Coffee Recomendation App
+## Assignment B4 - Iman Mir Coffee Reccomendation App
 
 For assignment b4 I have created a new app.
 
