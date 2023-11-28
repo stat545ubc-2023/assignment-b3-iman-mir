@@ -30,3 +30,8 @@ next tab shows the most highly recommended roaster of where they can buy
 different coffees from. There is also a corresponding table as well. The
 last tab is the customer reviews tab with a table with reviews for
 different coffees based on the preferences they chose.
+
+### Source of Dataset
+
+The coffee_data dataset can be downloaded from the follwoing link:
+<https://www.kaggle.com/datasets/schmoyote/coffee-reviews-dataset/data?select=simplified_coffee.csv/>
