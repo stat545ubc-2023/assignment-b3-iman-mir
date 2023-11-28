@@ -60,9 +60,9 @@ ui <- fluidPage(
                    #Feature 4: Creating panel of highly recommended panel to highlight
                    #information and make it easier for user to see 
                    column(width = 12, uiOutput("highly_recommended_coffee_panel")),
-                   column(width = 12, h4("Reccommended Coffees per Price")),
+                   column(width = 12, h4("Recommended Coffees per Price")),
                    column(width = 12, plotOutput("recommendation_plot")),
-                   column(width = 12, h4("Table of Reccommended Data")),
+                   column(width = 12, h4("Table of Recommended Data")),
                    
                    #Feature 5: Creating tableoutput to create dyanmic table  
                    #and allow users to search further
@@ -78,9 +78,9 @@ ui <- fluidPage(
                    #Creating panel of highly recommended panel to highlight
                    #information and make it easier for user to see 
                    column(width = 12, uiOutput("highly_recommended_roaster_panel")),
-                   column(width = 12, h4("Reccommended Roasters per Coffee")),
+                   column(width = 12, h4("Recommended Roasters per Coffee")),
                    column(width = 12, plotOutput("recommendation_plot2")),
-                   column(width = 12, h4("Table of Reccommended Data")),
+                   column(width = 12, h4("Table of Recommended Data")),
                    
                    #Creating tableoutput to create dyanmic table  
                    #and allow users to search further
