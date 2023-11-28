@@ -8,7 +8,7 @@ For assignment b4 I have created a new app.
 ### Link to Shiny App
 
 The following is a link to a running instance of the app:
-<https://iman-mir.shinyapps.io/iman_mir_flow_rate_extremes_app/>
+<https://iman-mir.shinyapps.io/iman_mir_coffee_recommendation_app/>
 
 ### Description of Shiny App
 
