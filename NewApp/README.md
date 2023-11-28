@@ -7,4 +7,4 @@ folder which tests the app usage.
 
 The app contains multiple features including a drop-down search bar,
 slider, tabs, interactive table, panels, reactive expressions,
-rednerPlot, renderText and renderUI funcitions among other features.
+renderPlot, renderText and renderUI functions among other features.
