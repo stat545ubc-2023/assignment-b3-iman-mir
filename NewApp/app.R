@@ -4,6 +4,7 @@ library(tidyverse)
 library(ggplot2)
 
 coffee_data <- read.csv("/Users/imanmir/Downloads/simplified_coffee.csv")
+unique_years <- unique(as.integer(format(as.Date(coffee_data$review_date), "%Y")))
 
 # UI
 ui <- fluidPage(
@@ -44,9 +45,14 @@ ui <- fluidPage(
                    column(width = 12, h4("Table of Reccommended Data")),
                    column(width = 12, DT::dataTableOutput("recommendation_table2"))
                    
-                 )
+                 
 
         ),
+        
+        tabPanel("Reviews", 
+                 selectInput("selected_year", "Select Year:",
+                             choices = c(unique(coffee_data$review_date))),
+                 actionButton("submit_year", "Submit")),
 
     )
     )
@@ -147,7 +153,18 @@ server <- function(input, output) {
     )
   })
   
-
+  output$selected_info <- renderText({
+    req(input$submit_year)
+    
+    # Filter data based on the selected year
+    filtered_data <- subset(coffee_data,
+                            format(review_date, "%Y") == input$selected_year)
+    
+    # Display the information for the selected year (modify as needed)
+    paste(filtered_data$relevant_info_column, collapse = "<br>")
+  })
+  
+  
   
 }
 
