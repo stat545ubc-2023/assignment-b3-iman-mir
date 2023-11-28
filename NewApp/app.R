@@ -113,7 +113,7 @@ server <- function(input, output) {
   })
   
 
-  #Creating recommendation plot for coffee name
+  #Feature 7:Creating render plot for coffee name
   output$recommendation_plot <- renderPlot({
     req(input$submit)
     filtered <- filtered_data()
@@ -128,7 +128,7 @@ server <- function(input, output) {
   output$recommendation_table <- DT::renderDataTable({
     req(input$submit)
     filtered <- filtered_data()
-    filtered[c("name", "X100g_USD","rating", "roast")]  # Adjust columns as needed
+    filtered[c("name", "X100g_USD","rating", "roast")] 
   })
   
   #Creating recommendation plot for roaster
@@ -146,10 +146,10 @@ server <- function(input, output) {
   output$recommendation_table2 <- DT::renderDataTable({
     req(input$submit)
     filtered <- filtered_data()
-    filtered[c( "roaster","rating", "roast")]  # Adjust columns as needed
+    filtered[c( "roaster","rating", "roast")]  
   })
   
-  #Determining highly recommended coffee in renderText
+  #Feature #8: Determining highly recommended coffee in renderText
   output$highly_recommended_coffee <- renderText({
     req(input$submit)
     filtered <- filtered_data()
@@ -157,15 +157,11 @@ server <- function(input, output) {
       filter(rating == max(rating)) %>%
       pull(name) %>%
       unique()
-    
-    if (length(top_coffee) > 0) {
-      paste("Highly recommended coffee(s):", paste(top_coffee, collapse = ", "))
-    } else {
-      "No highly recommended coffee found based on selected criteria."
-    }
+    if (length(top_coffee) > 0) {paste("Highly recommended coffee(s):", paste(top_coffee, collapse = ", "))} 
+    else {"No highly recommended coffee found based on selected criteria."}
   })
   
-  
+  # Determining highly recommended rosater in renderText
   output$highly_recommended_roaster <- renderText({
     req(input$submit)
     filtered <- filtered_data()
@@ -173,23 +169,13 @@ server <- function(input, output) {
       filter(rating == max(rating)) %>%
       pull(roaster) %>%
       unique()
-    
     if (length(top_roaster) > 0) {
-      paste("Highly recommended roaster(s):", paste(top_roaster, collapse = ", "))
-    } else {
-      "No highly recommended roaster found based on the selected criteria."
-    }
+      paste("Highly recommended roaster(s):", paste(top_roaster, collapse = ", "))} 
+    else { "No highly recommended roaster found based on the selected criteria."}
   })
   
   
-  output$highly_review_table <- DT::renderDataTable({
-    req(input$submit)
-    filtered <- filtered_data()
-    filtered[c("name","roaster", "review_date", "review")]  # Adjust columns as needed
-  })
-
-  
-  
+  #Feature #9: Creating highly recommended coffee panel with renderUI
   output$highly_recommended_coffee_panel <- renderUI({
     fluidRow(
       column(
@@ -199,6 +185,7 @@ server <- function(input, output) {
     )
   })
   
+  #Creating highly recommended roaster panel with renderUI
   output$highly_recommended_roaster_panel <- renderUI({
     fluidRow(
       column(
@@ -208,8 +195,15 @@ server <- function(input, output) {
     )
   })
   
+  #Creating highly review table with renderDataTable
+  output$highly_review_table <- DT::renderDataTable({
+    req(input$submit)
+    filtered <- filtered_data()
+    filtered[c("name","roaster", "review_date", "review")]  # Adjust columns as needed
+  })
   
 }
 
-# Run the application
+
+# Run App 
 shinyApp(ui = ui, server = server)
