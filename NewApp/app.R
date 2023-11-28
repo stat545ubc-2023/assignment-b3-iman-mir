@@ -118,8 +118,7 @@ server <- function(input, output) {
     req(input$submit)
     filtered <- filtered_data()
     plot1 <- ggplot(filtered, aes(x = X100g_USD, y = name)) +
-      geom_point() +
-      geom_line() +
+      geom_point(color = "blue") +
       labs(x = "Price (X100g_USD)", y = "Coffee Name")
     print(plot1)
   })
@@ -136,7 +135,7 @@ server <- function(input, output) {
     req(input$submit)
     filtered <- filtered_data()
     plot2 <- ggplot(filtered, aes(x = name, y = roaster)) +
-      geom_point() +
+      geom_point(color = "green") +
       labs(x = "Coffee Name", y = "Roaster") + 
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     print(plot2)
