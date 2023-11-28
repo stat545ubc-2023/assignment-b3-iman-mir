@@ -6,7 +6,6 @@ output: github_document
 ```{r}
 coffee_data <- read.csv("/Users/imanmir/Downloads/simplified_coffee.csv")
 
-unique_years <-(coffee_data$review_date)
 ```
 
 ```{r}
