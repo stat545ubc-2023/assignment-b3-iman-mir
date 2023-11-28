@@ -3,12 +3,7 @@ title: "README"
 output: github_document
 ---
 
-```{r}
-coffee_data <- read.csv("/Users/imanmir/Downloads/simplified_coffee.csv")
+This folder contains the app.R file with the shiny app functionalities, the rsconnect file containing the shinyapps.io information and the tests folder which tests the app usage.
 
-```
-
-```{r}
-unique(coffee_data$review)
-```
+The app contains multiple features including a drop-down search bar, slider, tabs, interactive table, panels, reactive expressions, rednerPlot, renderText and renderUI funcitions among other features. 
 
