@@ -4,7 +4,6 @@ library(tidyverse)
 library(ggplot2)
 
 coffee_data <- read.csv("/Users/imanmir/Downloads/simplified_coffee.csv")
-unique_years <- unique(as.integer(format(as.Date(coffee_data$review_date), "%Y")))
 
 # UI
 ui <- fluidPage(
@@ -15,7 +14,7 @@ ui <- fluidPage(
                   choices = c("All", unique(coffee_data$loc_country))),
       selectInput("roast_type", "Select Roast Type:",
                   choices = c("All", unique(coffee_data$roast))),
-      sliderInput("price_range", "Select Price Range:",
+      sliderInput("price_range", "Select Price per 100g Range (in USD):",
                   min = min(coffee_data$X100g_USD), max = max(coffee_data$X100g_USD),
                   value = c(min(coffee_data$X100g_USD), max(coffee_data$X100g_USD)),
                   step = 1),
@@ -40,23 +39,18 @@ ui <- fluidPage(
                  fluidRow(
                    column(width = 12, h4("Based on your choices:")),
                    column(width = 12, uiOutput("highly_recommended_roaster_panel")),
-                   column(width = 12, h4("Reccommended Coffees per Price")),
+                   column(width = 12, h4("Reccommended Roasters per Coffee")),
                    column(width = 12, plotOutput("recommendation_plot2")),
                    column(width = 12, h4("Table of Reccommended Data")),
-                   column(width = 12, DT::dataTableOutput("recommendation_table2"))
-                   
+                   column(width = 12, DT::dataTableOutput("recommendation_table2")))
                  
-
-        ),
+                 ),
+        tabPanel("Customer Reviews", 
+                 uiOutput("highly_review_panel")),
         
-        tabPanel("Reviews", 
-                 selectInput("selected_year", "Select Year:",
-                             choices = c(unique(coffee_data$review_date))),
-                 actionButton("submit_year", "Submit")),
-
-    )
     )
   )
+)
 )
 
 # Server
@@ -77,6 +71,7 @@ server <- function(input, output) {
     filtered <- filtered_data()
     p <- ggplot(filtered, aes(x = X100g_USD, y = name)) +
       geom_point() +
+      geom_line() +
       labs(x = "Price (X100g_USD)", y = "Coffee Name")
     print(p)
   })
@@ -91,8 +86,9 @@ server <- function(input, output) {
     req(input$submit)
     filtered <- filtered_data()
     p <- ggplot(filtered, aes(x = name, y = roaster)) +
+      geom_line() +
       geom_point() +
-      labs(x = "Name", y = "Roaster") + 
+      labs(x = "Coffee Name", y = "Roaster") + 
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     print(p)
   })
@@ -100,7 +96,7 @@ server <- function(input, output) {
   output$recommendation_table2 <- DT::renderDataTable({
     req(input$submit)
     filtered <- filtered_data()
-    filtered[c("name", "roaster","rating", "roast")]  # Adjust columns as needed
+    filtered[c( "roaster","rating", "roast")]  # Adjust columns as needed
   })
   
   output$highly_recommended_coffee <- renderText({
@@ -133,6 +129,21 @@ server <- function(input, output) {
     }
   })
   
+  output$highly_review <- renderText({
+    req(input$submit)
+    filtered <- filtered_data()
+    high_review <- filtered %>%
+      filter(rating == max(rating)) %>%
+      pull(review)
+  })
+  
+
+  output$highly_review_table <- DT::renderDataTable({
+    req(input$submit)
+    filtered <- filtered_data()
+    filtered[c("name","roaster", "revieww_date", "review")]  # Adjust columns as needed
+  })
+
   
   
   output$highly_recommended_coffee_panel <- renderUI({
@@ -153,16 +164,7 @@ server <- function(input, output) {
     )
   })
   
-  output$selected_info <- renderText({
-    req(input$submit_year)
-    
-    # Filter data based on the selected year
-    filtered_data <- subset(coffee_data,
-                            format(review_date, "%Y") == input$selected_year)
-    
-    # Display the information for the selected year (modify as needed)
-    paste(filtered_data$relevant_info_column, collapse = "<br>")
-  })
+ 
   
   
   
