@@ -1,6 +1,48 @@
 README
 ================
 
+## Assignment B4 - Iman Mir Coffee Recomendation App
+
+For assignment b4 I have created a new app.
+
+### Link to Shiny App
+
+The following is a link to a running instance of the app:
+<https://iman-mir.shinyapps.io/iman_mir_flow_rate_extremes_app/>
+
+### Description of Shiny App
+
+The app contains multiple features to allow a user to determine the best
+coffee for them based on the coffee dataset.The app will suggest the
+highly recommended coffee and roaster location for the user, however the
+user can still look at the graphs and tables to see other options if
+they would like to. The user first chooses their country, their desired
+roast type and their price range. After clicking submit, on the coffee
+name recommendation tab the user will see the name(s) of their
+recommended coffee name based on the highest rating. There is also a
+graph which shows a visual of different coffees within the price range
+they chose, as well as a table with the corresponding information. The
+next tab shows the most highly recommended roaster of where they can buy
+different coffees from. There is also a corresponding table as well. The
+last tab is the customer reviews tab with a table with reviews for
+different coffees based on the preferences they chose.
+
+### Source of Dataset
+
+The coffee_data dataset can be downloaded from the follwoing link:
+<https://www.kaggle.com/datasets/schmoyote/coffee-reviews-dataset/data?select=simplified_coffee.csv/>
+
+### Repository Main Files
+
+The repository contains:
+
+- README.md and README.rmd files describing the repository
+
+- Iman Mir Coffee Recommendations App which contains the app.R and
+  rsconnect files
+
+## Assignment B3 - Iman Mir Flow Rates Extremes App
+
 ### Link to Shiny App
 
 The following is a link to a running instance of the app:
